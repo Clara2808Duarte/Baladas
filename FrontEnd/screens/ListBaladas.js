@@ -15,13 +15,13 @@ export default function ListarBaladasScreen({ navigation }) {
   // Função para carregar todas as baladas
   const carregarBaladas = () => {
     api
-      .get("/")
-      .then((res) => setBaladas(res.data))
+      .get("/") // usa a baseURL do api.js
+      .then((res) => setBaladas(res.data)) // atualiza o estado com os dados recebidos
       .catch((err) => console.log(err));
   };
 
   useEffect(() => {
-    carregarBaladas();
+    carregarBaladas(); // carrega as baladas ao montar o componente
   }, []);
 
   // Função para deletar uma balada
@@ -30,10 +30,10 @@ export default function ListarBaladasScreen({ navigation }) {
       { text: "Cancelar", style: "cancel" },
       {
         text: "Deletar",
-        style: "destructive",
-        onPress: async () => {
+        style: "destructive", // cor vermelha no iOS
+        onPress: async () => { 
           try {
-            await api.delete(`/${id}`);
+            await api.delete(`/${id}`); //%{id} significa que é uma variável
             Alert.alert("Sucesso", "Balada deletada!");
             carregarBaladas(); // atualiza a lista
           } catch (error) {
@@ -45,7 +45,7 @@ export default function ListarBaladasScreen({ navigation }) {
     ]);
   };
 
-  const renderItem = ({ item }) => (
+  const renderItem = ({ item }) => ( // renderiza cada item da lista
     <View style={styles.card}>
       <Text style={styles.title}>
         {item.cidade} - {item.tipo}
@@ -63,7 +63,7 @@ export default function ListarBaladasScreen({ navigation }) {
 
         <TouchableOpacity
           style={styles.btnDelete}
-          onPress={() => deletarBalada(item.id)}
+          onPress={() => deletarBalada(item.id)} // chama a função de deletar -> (item.id) pega o id da balada atual
         >
           <Text style={styles.btnText}>Deletar</Text>
         </TouchableOpacity>
@@ -76,8 +76,8 @@ export default function ListarBaladasScreen({ navigation }) {
       <Text style={styles.header}>Lista de Baladas</Text>
       <FlatList
         data={baladas}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={renderItem}
+        keyExtractor={(item) => item.id.toString()} // converte o id para string para evitar warnings -> warnings são avisos que não impedem o funcionamento
+        renderItem={renderItem} // função que renderiza cada item 
         contentContainerStyle={{ paddingBottom: 20 }}
       />
     </View>

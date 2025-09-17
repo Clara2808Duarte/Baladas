@@ -7,13 +7,13 @@ import {
   StyleSheet,
   Alert,
 } from "react-native";
-import api from "../services/app"; 
+import api from "../services/app"; // importa a instância do axios -> axios é uma biblioteca para fazer requisições HTTP
 
 export default function DeleteBaladaScreen() {
   const [id, setId] = useState("");
 
   const handleDelete = async () => {
-    if (!id) {
+    if (!id) { // verifica se o campo ID está vazio -> ! significa "não"
       Alert.alert("Erro", "Digite o ID da balada");
       return;
     }
@@ -21,7 +21,7 @@ export default function DeleteBaladaScreen() {
     try {
       await api.delete(`/${id}`); // usa a baseURL do api.js
       Alert.alert("Sucesso", "Balada deletada!");
-      setId("");
+      setId(""); // limpa o campo ID após a deleção
     } catch (error) {
       console.log(error);
       Alert.alert("Erro", "Não foi possível deletar.");

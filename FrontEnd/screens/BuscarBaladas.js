@@ -4,17 +4,17 @@ import api from "../services/app";
 
 export default function BuscarBaladaScreen() {
   const [cidade, setCidade] = useState("");
-  const [resultados, setResultados] = useState([]);
+  const [resultados, setResultados] = useState([]);// [] significa que o estado inicial é uma lista vazia
 
   const buscar = (texto) => {
     setCidade(texto);
-    if (texto.length > 1) {
+    if (texto.length > 1) { // só busca se tiver mais de 1 caractere
       api
-        .get(`/cidade/${texto}`)
-        .then((res) => setResultados(res.data))
+        .get(`/cidade/${texto}`) //${texto} é o valor digitado
+        .then((res) => setResultados(res.data)) // atualiza o estado com os dados recebidos
         .catch((err) => console.log(err));
     } else {
-      setResultados([]);
+      setResultados([]); // limpa os resultados se o texto for muito curto
     }
   };
 
@@ -37,7 +37,7 @@ export default function BuscarBaladaScreen() {
               {item.cidade} - {item.tipo}
             </Text>
             <Text style={styles.subtitle}>
-              {item.data_evento} • {item.endereco}
+              {item.data_evento} • {item.endereco} // exibe os detalhes da balada (o ponto • é só um separador visual)
             </Text>
           </View>
         )}

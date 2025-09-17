@@ -8,7 +8,7 @@ import EditarBalada from './screens/UpdateBaladas';
 import DeleteBalada from './screens/DeleteBalada';
 import Home from './screens/Home';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator() // cria o stack de navegação -> strack é um conjunto de telas 
 
 export default function App() {
   return (

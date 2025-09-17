@@ -17,25 +17,25 @@ export default function EditarBalada({ route, navigation }) {
   const [dataEvento, setDataEvento] = useState("");
   const [tipo, setTipo] = useState("");
 
-  useEffect(() => {
+  useEffect(() => { // preenche os campos com os dados atuais da balada
     if (balada) {
       setCidade(balada.cidade);
       setEndereco(balada.endereco);
       setDataEvento(balada.data_evento);
       setTipo(balada.tipo);
     }
-  }, [balada]);
+  }, [balada]); // só roda quando balada muda 
 
 const handleUpdate = async () => {
-  if (!cidade || !endereco || !dataEvento || !tipo) {
-    Alert.alert("Erro", "Preencha todos os campos");
+  if (!cidade || !endereco || !dataEvento || !tipo) { // validação simples -> || significa "ou"
+    Alert.alert("Erro", "Preencha todos os campos"); 
     return;
   }
 
   try {
     // garante que está enviando os campos certos
     const payload = {
-      cidade: cidade.trim(),
+      cidade: cidade.trim(), // trim() remove espaços extras
       endereco: endereco.trim(),
       data_evento: dataEvento.trim(), // YYYY-MM-DD
       tipo: tipo.trim(),
