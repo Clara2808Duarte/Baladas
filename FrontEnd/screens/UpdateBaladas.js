@@ -26,26 +26,32 @@ export default function EditarBalada({ route, navigation }) {
     }
   }, [balada]);
 
-  const handleUpdate = async () => {
-    if (!cidade || !endereco || !dataEvento || !tipo) {
-      Alert.alert("Erro", "Preencha todos os campos");
-      return;
-    }
+const handleUpdate = async () => {
+  if (!cidade || !endereco || !dataEvento || !tipo) {
+    Alert.alert("Erro", "Preencha todos os campos");
+    return;
+  }
 
-    try {
-      await api.put(`/${balada.id}`, {
-        cidade,
-        endereco,
-        data_evento: dataEvento,
-        tipo,
-      });
-      Alert.alert("Sucesso", "Balada atualizada!");
-      navigation.goBack(); // volta para a lista
-    } catch (error) {
-      console.log(error);
-      Alert.alert("Erro", "Não foi possível atualizar a balada");
-    }
-  };
+  try {
+    // garante que está enviando os campos certos
+    const payload = {
+      cidade: cidade.trim(),
+      endereco: endereco.trim(),
+      data_evento: dataEvento.trim(), // YYYY-MM-DD
+      tipo: tipo.trim(),
+    };
+
+    console.log("Payload enviado:", payload); // DEBUG: verifique se está correto
+
+    await api.put(`/${balada.id}`, payload);
+    Alert.alert("Sucesso", "Balada atualizada!");
+    navigation.goBack();
+  } catch (error) {
+    console.log(error.response?.data || error.message);
+    Alert.alert("Erro", "Não foi possível atualizar a balada");
+  }
+};
+
 
   return (
     <View style={styles.container}>
@@ -88,7 +94,7 @@ export default function EditarBalada({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#000", padding: 20 },
+  container: { flex: 1, backgroundColor: "#000", padding: 20, paddonTop: 58,},
   header: {
     color: "#E91E63",
     fontSize: 24,
