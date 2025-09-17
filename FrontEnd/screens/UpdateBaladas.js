@@ -101,6 +101,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 20,
     textAlign: "center",
+    paddingTop: 40,
+  
   },
   input: {
     backgroundColor: "#1a1a1a",

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -85,7 +85,7 @@ export default function ListarBaladasScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#000", padding: 16 },
+  container: { flex: 1, backgroundColor: "#000", padding: 16, paddingTop: 58,},
   header: {
     color: "#E91E63",
     fontSize: 24,

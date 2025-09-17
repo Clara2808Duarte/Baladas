@@ -15,6 +15,9 @@ router.get("/cidade/:cidade", baladaController.getByCidade);
 // Rota para obter baladas por data
 router.get("/data/:data", baladaController.getByData);
 
+// Rota para obter baladas por tipo
+router.get("/tipo/:tipo", baladaController.getByTipo);
+
 // Rota para criar uma nova balada
 router.post("/", baladaController.create);
 
