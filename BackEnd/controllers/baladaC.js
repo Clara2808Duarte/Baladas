@@ -58,6 +58,22 @@ exports.getByData = (req, res) => {
 };
 
 // ============================
+// Controlador: GET baladas por tipo
+// ============================
+
+exports.getByTipo = (req, res) => {
+  const { tipo } = req.params;
+  Balada.getBaladasByTipo(tipo, (err, baladas) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.json(baladas);
+    }
+  });
+};
+
+
+// ============================
 // Controlador: POST nova balada
 // ============================
 exports.create = (req, res) => {

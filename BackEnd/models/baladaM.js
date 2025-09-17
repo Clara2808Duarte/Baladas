@@ -1,4 +1,3 @@
-//model/balada.js
 const sqlite3 = require("sqlite3").verbose();
 const dbPath = "./infra/balada.db";
 
@@ -47,6 +46,19 @@ function getBaladasByData(data, callback) {
   });
 }
 
+// Buscar baladas por tipo
+function getBaladasByTipo(tipo, callback) {
+  const db = openDbConnection();
+  db.all(
+    "SELECT * FROM Balada WHERE LOWER(tipo) = LOWER(?)",
+    [tipo],
+    (err, rows) => {
+      db.close();
+      callback(err, rows);
+    }
+  );
+}
+
 // Buscar balada por ID
 function getBaladaById(id, callback) {
   const db = openDbConnection();
@@ -57,9 +69,8 @@ function getBaladaById(id, callback) {
 }
 
 // Criar nova balada
-// Criar nova balada
 function createBalada(balada, callback) {
-  const { cidade, endereco, data_evento, tipo } = balada; // sem 'nome'
+  const { cidade, endereco, data_evento, tipo } = balada;
   const db = openDbConnection();
   db.run(
     `INSERT INTO Balada (cidade, endereco, data_evento, tipo) 
@@ -74,7 +85,7 @@ function createBalada(balada, callback) {
 
 // Atualizar balada
 function updateBalada(id, balada, callback) {
-  const { cidade, endereco, data_evento, tipo } = balada; // sem 'nome' e 'descricao'
+  const { cidade, endereco, data_evento, tipo } = balada;
   const db = openDbConnection();
   db.run(
     `UPDATE Balada
@@ -104,6 +115,7 @@ module.exports = {
   getAllBaladas,
   getBaladasByCidade,
   getBaladasByData,
+  getBaladasByTipo, // ✅ adicionar export
   getBaladaById,
   createBalada,
   updateBalada,

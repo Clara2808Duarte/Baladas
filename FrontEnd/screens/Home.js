@@ -21,30 +21,12 @@ export default function Home({ navigation }) {
         <Text style={styles.btnText}>Adicionar Balada</Text>
       </TouchableOpacity>
 
-      {/* Atualizar Balada */}
-      <TouchableOpacity
-        style={styles.btn}
-        onPress={() => navigation.navigate("ListarBaladas")}
-      >
-        <Text style={styles.btnText}>Atualizar Balada</Text>
-        <Text style={styles.subText}>Clique em "Atualizar" na lista</Text>
-      </TouchableOpacity>
-
       {/* Buscar Balada */}
       <TouchableOpacity
         style={styles.btn}
         onPress={() => navigation.navigate("BuscarBalada")}
       >
         <Text style={styles.btnText}>Buscar Balada</Text>
-      </TouchableOpacity>
-
-      {/* Deletar Balada */}
-      <TouchableOpacity
-        style={styles.btn}
-        onPress={() => navigation.navigate("ListarBaladas")}
-      >
-        <Text style={styles.btnText}>Deletar Balada</Text>
-        <Text style={styles.subText}>Clique em "Deletar" na lista</Text>
       </TouchableOpacity>
     </ScrollView>
   );
