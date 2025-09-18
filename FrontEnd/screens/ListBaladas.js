@@ -7,7 +7,7 @@ import {
   StyleSheet,
   Alert,
 } from "react-native";
-import api from "../services/app";
+import api from "../services/app"; // importa a configuração do axios -> axios é uma biblioteca para fazer requisições HTTP
 
 export default function ListarBaladasScreen({ navigation }) {
   const [baladas, setBaladas] = useState([]);
