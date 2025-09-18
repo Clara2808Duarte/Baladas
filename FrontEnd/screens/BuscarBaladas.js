@@ -4,11 +4,11 @@ import api from "../services/app";
 
 export default function BuscarBaladaScreen() {
   const [termo, setTermo] = useState("");
-  const [resultados, setResultados] = useState([]);
+  const [resultados, setResultados] = useState([]); // resultados da busca
 
-  const buscar = async (texto) => {
-    setTermo(texto);
-    if (texto.length > 1) {
+  const buscar = async (texto) => { // função de busca
+    setTermo(texto); // atualiza o termo de busca
+    if (texto.length > 1) { // busca só se tiver mais de 1 caractere
       try {
         // busca por cidade
         const resCidade = await api.get(`/cidade/${texto}`);
@@ -17,21 +17,21 @@ export default function BuscarBaladaScreen() {
         // busca por tipo
         const resTipo = await api
           .get(`/tipo/${texto}`)
-          .catch(() => ({ data: [] }));
+          .catch(() => ({ data: [] })); // trata erro
 
         // juntar resultados sem duplicar
-        const todos = [...resCidade.data, ...resData.data, ...resTipo.data];
-        const unicos = Array.from(
-          new Map(todos.map((item) => [item.id, item])).values()
+        const todos = [...resCidade.data, ...resData.data, ...resTipo.data];// concatena arrays
+        const unicos = Array.from( // remove duplicates
+          new Map(todos.map((item) => [item.id, item])).values() // usa Map para garantir unicidade
         );
 
-        setResultados(unicos);
-      } catch (err) {
-        console.log(err);
-        setResultados([]);
+        setResultados(unicos); // atualiza os resultados
+      } catch (err) { // trata erros
+        console.log(err); // loga o erro
+        setResultados([]); // limpa resultados em caso de erro
       }
     } else {
-      setResultados([]);
+      setResultados([]); // limpa resultados se o termo for muito curto
     }
   };
 
@@ -47,11 +47,11 @@ export default function BuscarBaladaScreen() {
       />
       <FlatList
         data={resultados}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          <View style={styles.card}>
+        keyExtractor={(item) => item.id.toString()} // chave única
+        renderItem={({ item }) => ( // renderiza cada item
+          <View style={styles.card}> // cartão estilizado
             <Text style={styles.title}>
-              {item.cidade} - {item.tipo}
+              {item.cidade} - {item.tipo} // título da balada
             </Text>
             <Text style={styles.subtitle}>
               {item.data_evento} • {item.endereco}
@@ -59,7 +59,7 @@ export default function BuscarBaladaScreen() {
           </View>
         )}
         ListEmptyComponent={
-          <Text style={styles.emptyText}>Nenhuma balada encontrada</Text>
+          <Text style={styles.emptyText}>Nenhuma balada encontrada</Text> // mensagem se vazio
         }
       />
     </View>

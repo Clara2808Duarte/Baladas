@@ -8,11 +8,7 @@ export default function Home({ navigation }) {
       {/* Listar Baladas */}
       <TouchableOpacity
         style={styles.btn}
-<<<<<<< HEAD
-        onPress={() => navigation.navigate("ListarBaladas")} 
-=======
         onPress={() => navigation.navigate("ListarBaladas")} // Navega para a tela de listar baladas
->>>>>>> b41032fa328aada1fa5962ead5c009111e246789
       >
         <Text style={styles.btnText}>Listar Baladas</Text>
       </TouchableOpacity>
@@ -43,7 +39,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     padding: 20,
-    paddingTop: 58, 
+    paddingTop: 58,
   },
   header: {
     color: "#E91E63",

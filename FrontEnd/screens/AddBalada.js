@@ -3,7 +3,7 @@ import {
   View,
   Text,
   TextInput,
-  TouchableOpacity,
+  TouchableOpacity, // para botões
   StyleSheet,
   Alert,
 } from "react-native";
@@ -16,11 +16,11 @@ export default function NovaBaladaScreen({ navigation }) {
   const [tipo, setTipo] = useState("");
 
   const criar = () => {
-    api
+    api // usa a baseURL do api.js
       .post("/", { cidade, endereco, data_evento: dataEvento, tipo })
       .then(() => { // executa quando a  requisição for bem sucedida
         Alert.alert("Sucesso", "Balada criada");
-        navigation.goBack();
+        navigation.goBack(); // volta para a tela anterior
       })
       .catch((err) => console.log(err));
   };
@@ -55,7 +55,7 @@ export default function NovaBaladaScreen({ navigation }) {
 
       <TouchableOpacity style={styles.btn} onPress={criar}>
         <Text style={styles.btnText}>Salvar</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> // botão para salvar
     </View>
   );
 }

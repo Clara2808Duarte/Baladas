@@ -13,7 +13,7 @@ const Stack = createNativeStackNavigator() // cria o stack de navegação -> str
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown:false }}>
+      <Stack.Navigator screenOptions={{ headerShown:false }}> // desabilita o header padrão
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="ListarBaladas" component={ListarBaladas} />
         <Stack.Screen name="BuscarBalada" component={BuscarBalada} />
