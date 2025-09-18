@@ -13,6 +13,6 @@ const baladaRoutes = require("./routes/baladaR");
 app.use("/baladas", baladaRoutes);
 
 // Iniciando o servidor
-app.listen(port, () => {
-  console.log(`🎉 Servidor rodando em http://localhost:${port}/baladas`);
+app.listen(port, () => { // Inicia o servidor na porta 3000
+  console.log(`Servidor rodando em http://localhost:${port}/baladas`); 
 });

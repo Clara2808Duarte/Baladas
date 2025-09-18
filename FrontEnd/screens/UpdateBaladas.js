@@ -7,7 +7,7 @@ import {
   StyleSheet,
   Alert,
 } from "react-native";
-import api from "../services/app";
+import api from "../services/app"; // importa o app do services/app.js
 
 export default function EditarBalada({ route, navigation }) {
   const { balada } = route.params; // pega os dados da balada selecionada
@@ -17,46 +17,42 @@ export default function EditarBalada({ route, navigation }) {
   const [dataEvento, setDataEvento] = useState("");
   const [tipo, setTipo] = useState("");
 
-  useEffect(() => { // preenche os campos com os dados atuais da balada
+  // Preenche os campos com os dados atuais da balada
+  useEffect(() => {
     if (balada) {
       setCidade(balada.cidade);
       setEndereco(balada.endereco);
       setDataEvento(balada.data_evento);
       setTipo(balada.tipo);
     }
-  }, [balada]); // só roda quando balada muda 
+  }, [balada]);
 
-const handleUpdate = async () => {
-<<<<<<< HEAD
-  if (!cidade || !endereco || !dataEvento || !tipo) { // Verifica se todos os campos estão preenchidos
-    Alert.alert("Erro", "Preencha todos os campos");
-=======
-  if (!cidade || !endereco || !dataEvento || !tipo) { // validação simples -> || significa "ou"
-    Alert.alert("Erro", "Preencha todos os campos"); 
->>>>>>> b41032fa328aada1fa5962ead5c009111e246789
-    return;
-  }
+  const handleUpdate = async () => {
+    if (!cidade || !endereco || !dataEvento || !tipo) {
+      Alert.alert("Erro", "Preencha todos os campos");
+      return;
+    }
 
-  try {
-    // garante que está enviando os campos certos
-    const payload = {
-      cidade: cidade.trim(), // trim() remove espaços extras
-      endereco: endereco.trim(),
-      data_evento: dataEvento.trim(), // YYYY-MM-DD
-      tipo: tipo.trim(),
-    };
+    try {
+      const payload = {
+        cidade: cidade.trim(),
+        endereco: endereco.trim(),
+        data_evento: dataEvento.trim(), // YYYY-MM-DD
+        tipo: tipo.trim(),
+      };
 
-    console.log("Payload enviado:", payload); // DEBUG: verifique se está correto
+      console.log("Payload enviado:", payload); // DEBUG
 
-    await api.put(`/${balada.id}`, payload);//
-    Alert.alert("Sucesso", "Balada atualizada!");
-    navigation.goBack();
-  } catch (error) {
-    console.log(error.response?.data || error.message);
-    Alert.alert("Erro", "Não foi possível atualizar a balada");
-  }
-};
+      // ✅ aqui está a correção: usar crase
+      await api.put(`/${balada.id}`, payload);
 
+      Alert.alert("Sucesso", "Balada atualizada!");
+      navigation.goBack();
+    } catch (error) {
+      console.log(error.response?.data || error.message); // DEBUG do erro
+      Alert.alert("Erro", "Não foi possível atualizar a balada");
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -99,7 +95,12 @@ const handleUpdate = async () => {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#000", padding: 20, paddonTop: 58,},
+  container: {
+    flex: 1,
+    backgroundColor: "#000",
+    padding: 20,
+    paddingTop: 58,
+  },
   header: {
     color: "#E91E63",
     fontSize: 24,
@@ -107,7 +108,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     textAlign: "center",
     paddingTop: 40,
-  
   },
   input: {
     backgroundColor: "#1a1a1a",
