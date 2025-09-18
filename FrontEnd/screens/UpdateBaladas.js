@@ -27,7 +27,7 @@ export default function EditarBalada({ route, navigation }) {
   }, [balada]);
 
 const handleUpdate = async () => {
-  if (!cidade || !endereco || !dataEvento || !tipo) {
+  if (!cidade || !endereco || !dataEvento || !tipo) { // Verifica se todos os campos estão preenchidos
     Alert.alert("Erro", "Preencha todos os campos");
     return;
   }
@@ -43,7 +43,7 @@ const handleUpdate = async () => {
 
     console.log("Payload enviado:", payload); // DEBUG: verifique se está correto
 
-    await api.put(`/${balada.id}`, payload);
+    await api.put(`/${balada.id}`, payload);//
     Alert.alert("Sucesso", "Balada atualizada!");
     navigation.goBack();
   } catch (error) {

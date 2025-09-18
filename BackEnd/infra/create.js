@@ -5,5 +5,5 @@ const db = new sqlite3.Database('./balada.db', sqlite3.OPEN_READWRITE | sqlite3.
 if (err) { 
 return console.error('Erro ao abrir o banco de dados:', err.message); 
 } 
-console.log('Conectado ao banco de dados SQLite.'); 
+console.log('Conectado ao banco de dados SQLite.'); //  
 });

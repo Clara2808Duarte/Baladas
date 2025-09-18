@@ -16,8 +16,8 @@ export default function ListarBaladasScreen({ navigation }) {
   const carregarBaladas = () => {
     api
       .get("/")
-      .then((res) => setBaladas(res.data))
-      .catch((err) => console.log(err));
+      .then((res) => setBaladas(res.data)) //atualiza a lista de baladas
+      .catch((err) => console.log(err)); // trata erros
   };
 
   useEffect(() => {
@@ -33,11 +33,11 @@ export default function ListarBaladasScreen({ navigation }) {
         style: "destructive",
         onPress: async () => {
           try {
-            await api.delete(`/${id}`);
+            await api.delete(`/${id}`);//
             Alert.alert("Sucesso", "Balada deletada!");
             carregarBaladas(); // atualiza a lista
           } catch (error) {
-            console.log(error);
+            console.log(error);// trata erros
             Alert.alert("Erro", "Não foi possível deletar.");
           }
         },
@@ -50,20 +50,20 @@ export default function ListarBaladasScreen({ navigation }) {
       <Text style={styles.title}>
         {item.cidade} - {item.tipo}
       </Text>
-      <Text style={styles.info}>Endereço: {item.endereco}</Text>
+      <Text style={styles.info}>Endereço: {item.endereco}</Text> 
       <Text style={styles.info}>Data: {item.data_evento}</Text>
 
       <View style={styles.buttonsContainer}>
         <TouchableOpacity
-          style={styles.btnUpdate}
-          onPress={() => navigation.navigate("EditarBalada", { balada: item })}
+          style={styles.btnUpdate} // Botão para atualizar a balada
+          onPress={() => navigation.navigate("EditarBalada", { balada: item })}//
         >
           <Text style={styles.btnText}>Atualizar</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.btnDelete}
-          onPress={() => deletarBalada(item.id)}
+          onPress={() => deletarBalada(item.id)}// Botão para deletar a balada
         >
           <Text style={styles.btnText}>Deletar</Text>
         </TouchableOpacity>
@@ -78,7 +78,7 @@ export default function ListarBaladasScreen({ navigation }) {
         data={baladas}
         keyExtractor={(item) => item.id.toString()}
         renderItem={renderItem}
-        contentContainerStyle={{ paddingBottom: 20 }}
+        contentContainerStyle={{ paddingBottom: 20 }} //
       />
     </View>
   );
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 8,
     flex: 1,
-    marginRight: 5,
+    marginRight: 5, // Margem direita do botão de atualizar
   },
   btnDelete: {
     backgroundColor: "crimson",
