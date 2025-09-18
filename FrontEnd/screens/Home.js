@@ -1,6 +1,6 @@
-import { Text, TouchableOpacity, StyleSheet, ScrollView } from "react-native";
+import {Text, TouchableOpacity, StyleSheet, ScrollView} from "react-native";
 
-export default function Home({ navigation }) {
+export default function Home({ navigation }) { // navigation é uma prop passada automaticamente pelo React Navigation
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.header}>Painel de Baladas</Text>
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     width: "80%",
     padding: 18,
     borderRadius: 12,
-    marginVertical: 10,
+    marginVertical: 10, // Espaçamento vertical entre os botões
     alignItems: "center",
     justifyContent: "center",
   },

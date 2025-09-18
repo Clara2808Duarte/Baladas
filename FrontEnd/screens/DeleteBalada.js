@@ -1,25 +1,19 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-  Alert,
-} from "react-native";
+import {View, Text, TextInput, TouchableOpacity, StyleSheet, Alert} from "react-native";
 import api from "../services/app"; // importa a instância do axios -> axios é uma biblioteca para fazer requisições HTTP
 
 export default function DeleteBaladaScreen() {
   const [id, setId] = useState("");
 
-  const handleDelete = async () => {
+  const handleDelete = async () => { // async indica que a função é assíncrona e () => é a sintaxe de função array
     if (!id) { // verifica se o campo ID está vazio -> ! significa "não"
       Alert.alert("Erro", "Digite o ID da balada");
       return;
     }
 
     try {
-      await api.delete(`/${id}`); // usa a baseURL do api.js
+      await api.delete(`/${id}`); // usa a baseURL do api.js e adiciona o ID para deletar a balada específica
+      // await espera a resposta da requisição antes de continuar
       Alert.alert("Sucesso", "Balada deletada!");
       setId(""); // limpa o campo ID após a deleção
     } catch (error) {
@@ -35,11 +29,11 @@ export default function DeleteBaladaScreen() {
         style={styles.input}
         placeholder="ID da balada"
         placeholderTextColor="#888"
-        value={id}
-        onChangeText={setId}
+        value={id} // valor do campo ID
+        onChangeText={setId} // atualiza o estado do ID
         keyboardType="numeric"
       />
-      <TouchableOpacity style={styles.button} onPress={handleDelete}>
+      <TouchableOpacity style={styles.button} onPress={handleDelete}> //handleDelete é um tipo de clique
         <Text style={styles.buttonText}>Deletar</Text>
       </TouchableOpacity>
     </View>
@@ -47,7 +41,10 @@ export default function DeleteBaladaScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#000", padding: 20,  paddingTop: 58,
+  container: { flex: 1, 
+    backgroundColor: "#000", 
+    padding: 20,  
+    paddingTop: 58,
  },
   title: {
     fontSize: 24,

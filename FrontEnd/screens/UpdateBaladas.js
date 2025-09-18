@@ -1,13 +1,6 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-  Alert,
-} from "react-native";
-import api from "../services/app";
+import {View, Text, TextInput, TouchableOpacity, StyleSheet, Alert} from "react-native";
+import api from "../services/app"; // importa o app do services/app.js
 
 export default function EditarBalada({ route, navigation }) {
   const { balada } = route.params; // pega os dados da balada selecionada
@@ -24,10 +17,10 @@ export default function EditarBalada({ route, navigation }) {
       setDataEvento(balada.data_evento);
       setTipo(balada.tipo);
     }
-  }, [balada]); // só roda quando balada muda 
+  }, [balada]); // só roda quando balada atualizada
 
 const handleUpdate = async () => {
-  if (!cidade || !endereco || !dataEvento || !tipo) { // validação simples -> || significa "ou"
+  if (!cidade || !endereco || !dataEvento || !tipo) { // validação simples -> || significa "ou" e ! significa "não"
     Alert.alert("Erro", "Preencha todos os campos"); 
     return;
   }
@@ -43,11 +36,13 @@ const handleUpdate = async () => {
 
     console.log("Payload enviado:", payload); // DEBUG: verifique se está correto
 
-    await api.put(`/${balada.id}`, payload);
+    await api.put(`/${balada.id}`, payload); //payload é o corpo da requisição -> passar as informações para atualizar a balada
     Alert.alert("Sucesso", "Balada atualizada!");
-    navigation.goBack();
+    navigation.goBack(); // volta para a tela anterior
   } catch (error) {
-    console.log(error.response?.data || error.message);
+    console.log(error.response?.data || error.message); // DEBUG: log do erro
+    // error.response?.data verifica se error.response existe antes de acessar a atualização 
+    // e error.message mostra a mensagem de erro genérica
     Alert.alert("Erro", "Não foi possível atualizar a balada");
   }
 };
@@ -94,7 +89,12 @@ const handleUpdate = async () => {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#000", padding: 20, paddonTop: 58,},
+  container: { 
+    flex: 1, 
+    backgroundColor: "#000", 
+    padding: 20, 
+    paddonTop: 58
+  },
   header: {
     color: "#E91E63",
     fontSize: 24,
