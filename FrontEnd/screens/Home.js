@@ -8,7 +8,9 @@ export default function Home({ navigation }) { // navigation é uma prop passada
       {/* Listar Baladas */}
       <TouchableOpacity
         style={styles.btn}
-        onPress={() => navigation.navigate("ListarBaladas")} // Navega para a tela de listar baladas
+
+        onPress={() => navigation.navigate("ListarBaladas")} 
+
       >
         <Text style={styles.btnText}>Listar Baladas</Text>
       </TouchableOpacity>
