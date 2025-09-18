@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -7,7 +7,7 @@ import {
   StyleSheet,
   Alert,
 } from "react-native";
-import api from "../services/app";
+import api from "../services/app"; // importa a configuração do axios -> axios é uma biblioteca para fazer requisições HTTP
 
 export default function ListarBaladasScreen({ navigation }) {
   const [baladas, setBaladas] = useState([]);
@@ -15,13 +15,19 @@ export default function ListarBaladasScreen({ navigation }) {
   // Função para carregar todas as baladas
   const carregarBaladas = () => {
     api
+<<<<<<< HEAD
       .get("/")
       .then((res) => setBaladas(res.data)) //atualiza a lista de baladas
       .catch((err) => console.log(err)); // trata erros
+=======
+      .get("/") // usa a baseURL do api.js
+      .then((res) => setBaladas(res.data)) // atualiza o estado com os dados recebidos
+      .catch((err) => console.log(err));
+>>>>>>> b41032fa328aada1fa5962ead5c009111e246789
   };
 
   useEffect(() => {
-    carregarBaladas();
+    carregarBaladas(); // carrega as baladas ao montar o componente
   }, []);
 
   // Função para deletar uma balada
@@ -30,10 +36,14 @@ export default function ListarBaladasScreen({ navigation }) {
       { text: "Cancelar", style: "cancel" },
       {
         text: "Deletar",
-        style: "destructive",
-        onPress: async () => {
+        style: "destructive", // cor vermelha no iOS
+        onPress: async () => { 
           try {
+<<<<<<< HEAD
             await api.delete(`/${id}`);//
+=======
+            await api.delete(`/${id}`); //%{id} significa que é uma variável
+>>>>>>> b41032fa328aada1fa5962ead5c009111e246789
             Alert.alert("Sucesso", "Balada deletada!");
             carregarBaladas(); // atualiza a lista
           } catch (error) {
@@ -45,7 +55,7 @@ export default function ListarBaladasScreen({ navigation }) {
     ]);
   };
 
-  const renderItem = ({ item }) => (
+  const renderItem = ({ item }) => ( // renderiza cada item da lista
     <View style={styles.card}>
       <Text style={styles.title}>
         {item.cidade} - {item.tipo}
@@ -63,7 +73,11 @@ export default function ListarBaladasScreen({ navigation }) {
 
         <TouchableOpacity
           style={styles.btnDelete}
+<<<<<<< HEAD
           onPress={() => deletarBalada(item.id)}// Botão para deletar a balada
+=======
+          onPress={() => deletarBalada(item.id)} // chama a função de deletar -> (item.id) pega o id da balada atual
+>>>>>>> b41032fa328aada1fa5962ead5c009111e246789
         >
           <Text style={styles.btnText}>Deletar</Text>
         </TouchableOpacity>
@@ -76,16 +90,22 @@ export default function ListarBaladasScreen({ navigation }) {
       <Text style={styles.header}>Lista de Baladas</Text>
       <FlatList
         data={baladas}
+<<<<<<< HEAD
         keyExtractor={(item) => item.id.toString()}
         renderItem={renderItem}
         contentContainerStyle={{ paddingBottom: 20 }} //
+=======
+        keyExtractor={(item) => item.id.toString()} // converte o id para string para evitar warnings -> warnings são avisos que não impedem o funcionamento
+        renderItem={renderItem} // função que renderiza cada item 
+        contentContainerStyle={{ paddingBottom: 20 }}
+>>>>>>> b41032fa328aada1fa5962ead5c009111e246789
       />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#000", padding: 16 },
+  container: { flex: 1, backgroundColor: "#000", padding: 16, paddingTop: 58,},
   header: {
     color: "#E91E63",
     fontSize: 24,

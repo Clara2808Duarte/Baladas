@@ -18,7 +18,7 @@ export default function NovaBaladaScreen({ navigation }) {
   const criar = () => {
     api
       .post("/", { cidade, endereco, data_evento: dataEvento, tipo })
-      .then(() => {
+      .then(() => { // executa quando a  requisição for bem sucedida
         Alert.alert("Sucesso", "Balada criada");
         navigation.goBack();
       })
@@ -31,7 +31,7 @@ export default function NovaBaladaScreen({ navigation }) {
       <TextInput
         style={styles.input}
         value={cidade}
-        onChangeText={setCidade}
+        onChangeText={setCidade} // função que atualiza o estado
         placeholder="Cidade"
       />
       <TextInput

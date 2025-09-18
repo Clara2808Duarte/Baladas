@@ -3,16 +3,33 @@ import { View, Text, TextInput, FlatList, StyleSheet } from "react-native";
 import api from "../services/app";
 
 export default function BuscarBaladaScreen() {
-  const [cidade, setCidade] = useState("");
+  const [termo, setTermo] = useState("");
   const [resultados, setResultados] = useState([]);
 
-  const buscar = (texto) => {
-    setCidade(texto);
+  const buscar = async (texto) => {
+    setTermo(texto);
     if (texto.length > 1) {
-      api
-        .get(`/cidade/${texto}`)
-        .then((res) => setResultados(res.data))
-        .catch((err) => console.log(err));
+      try {
+        // busca por cidade
+        const resCidade = await api.get(`/cidade/${texto}`);
+        // busca por data (formato YYYY-MM-DD)
+        const resData = await api.get(`/data/${texto}`);
+        // busca por tipo
+        const resTipo = await api
+          .get(`/tipo/${texto}`)
+          .catch(() => ({ data: [] }));
+
+        // juntar resultados sem duplicar
+        const todos = [...resCidade.data, ...resData.data, ...resTipo.data];
+        const unicos = Array.from(
+          new Map(todos.map((item) => [item.id, item])).values()
+        );
+
+        setResultados(unicos);
+      } catch (err) {
+        console.log(err);
+        setResultados([]);
+      }
     } else {
       setResultados([]);
     }
@@ -20,12 +37,12 @@ export default function BuscarBaladaScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Buscar Balada por Cidade</Text>
+      <Text style={styles.header}>Buscar Balada</Text>
       <TextInput
         style={styles.input}
-        placeholder="Digite a cidade"
+        placeholder="Digite cidade, data ou tipo"
         placeholderTextColor="#ccc"
-        value={cidade}
+        value={termo}
         onChangeText={buscar}
       />
       <FlatList
@@ -41,14 +58,16 @@ export default function BuscarBaladaScreen() {
             </Text>
           </View>
         )}
+        ListEmptyComponent={
+          <Text style={styles.emptyText}>Nenhuma balada encontrada</Text>
+        }
       />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#000", padding: 16, paddingTop: 58,
- },
+  container: { flex: 1, backgroundColor: "#000", padding: 16, paddingTop: 58 },
   header: {
     color: "#E91E63",
     fontSize: 22,
@@ -70,4 +89,10 @@ const styles = StyleSheet.create({
   },
   title: { color: "#fff", fontSize: 18, fontWeight: "bold" },
   subtitle: { color: "#ccc", fontSize: 14 },
+  emptyText: {
+    color: "#888",
+    fontSize: 16,
+    textAlign: "center",
+    marginTop: 20,
+  },
 });
