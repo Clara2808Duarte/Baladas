@@ -3,17 +3,6 @@ import { View, Text, TextInput, FlatList, StyleSheet } from "react-native";
 import api from "../services/app";
 
 export default function BuscarBaladaScreen() {
-  const [cidade, setCidade] = useState("");
-  const [resultados, setResultados] = useState([]);// [] significa que o estado inicial é uma lista vazia
-
-  const buscar = (texto) => {
-    setCidade(texto);
-    if (texto.length > 1) { // só busca se tiver mais de 1 caractere
-      api
-        .get(`/cidade/${texto}`) //${texto} é o valor digitado
-        .then((res) => setResultados(res.data)) // atualiza o estado com os dados recebidos
-        .catch((err) => console.log(err));
-
   const [termo, setTermo] = useState("");
   const [resultados, setResultados] = useState([]);
 
@@ -42,11 +31,10 @@ export default function BuscarBaladaScreen() {
         setResultados([]);
       }
     } else {
-      setResultados([]); // limpa os resultados se o texto for muito curto
+      setResultados([]);
     }
-  }
-    }
-  
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Buscar Balada</Text>
@@ -66,7 +54,7 @@ export default function BuscarBaladaScreen() {
               {item.cidade} - {item.tipo}
             </Text>
             <Text style={styles.subtitle}>
-              {item.data_evento} • {item.endereco} // exibe os detalhes da balada (o ponto • é só um separador visual)
+              {item.data_evento} • {item.endereco}
             </Text>
           </View>
         )}
@@ -77,8 +65,6 @@ export default function BuscarBaladaScreen() {
     </View>
   );
 }
-  }
-
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#000", padding: 16, paddingTop: 58 },
